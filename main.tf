@@ -1,26 +1,33 @@
+locals {
+  oauth_profile_client_required_claims_list          = tolist(var.oauth_profile_client_required_claims)
+  oauth_profile_resource_server_required_claims_list = tolist(var.oauth_profile_resource_server_required_claims)
+  cert_matching_rule_conditions_list                 = tolist(var.cert_matching_rule_conditions)
+  cert_matching_rule_attribute_filters_list          = tolist(var.cert_matching_rule_attribute_filters)
+}
+
 resource "solacebroker_msg_vpn" "main" {
-  msg_vpn_name              = var.msg_vpn_name
-  authentication_basic_type = var.authentication_basic_type
-  dmr_enabled               = var.dmr_enabled
-  enabled                   = var.enabled
-  jndi_enabled              = var.jndi_enabled
-  max_msg_spool_usage       = var.max_msg_spool_usage
+  msg_vpn_name                                                  = var.msg_vpn_name
+  authentication_basic_type                                     = var.authentication_basic_type
+  dmr_enabled                                                   = var.dmr_enabled
+  enabled                                                       = var.enabled
+  jndi_enabled                                                  = var.jndi_enabled
+  max_msg_spool_usage                                           = var.max_msg_spool_usage
+  authentication_oauth_enabled                                  = var.oauth_profile_name != "" ? true : var.authentication_oauth_enabled
+  authentication_oauth_default_profile_name                     = var.oauth_profile_name != "" ? var.oauth_profile_name : var.authentication_oauth_default_profile_name
+  authentication_client_cert_enabled                            = var.cert_matching_rule_name != "" ? true : var.authentication_client_cert_enabled
+  authentication_client_cert_certificate_matching_rules_enabled = var.cert_matching_rule_name != "" ? true : var.authentication_client_cert_certificate_matching_rules_enabled
 
   alias                                                          = var.alias
   authentication_basic_enabled                                   = var.authentication_basic_enabled
   authentication_basic_profile_name                              = var.authentication_basic_profile_name
   authentication_basic_radius_domain                             = var.authentication_basic_radius_domain
   authentication_client_cert_allow_api_provided_username_enabled = var.authentication_client_cert_allow_api_provided_username_enabled
-  authentication_client_cert_certificate_matching_rules_enabled  = var.authentication_client_cert_certificate_matching_rules_enabled
-  authentication_client_cert_enabled                             = var.authentication_client_cert_enabled
   authentication_client_cert_max_chain_depth                     = var.authentication_client_cert_max_chain_depth
   authentication_client_cert_revocation_check_mode               = var.authentication_client_cert_revocation_check_mode
   authentication_client_cert_username_source                     = var.authentication_client_cert_username_source
   authentication_client_cert_validate_date_enabled               = var.authentication_client_cert_validate_date_enabled
   authentication_kerberos_allow_api_provided_username_enabled    = var.authentication_kerberos_allow_api_provided_username_enabled
   authentication_kerberos_enabled                                = var.authentication_kerberos_enabled
-  authentication_oauth_default_profile_name                      = var.authentication_oauth_default_profile_name
-  authentication_oauth_enabled                                   = var.authentication_oauth_enabled
   authorization_ldap_group_membership_attribute_name             = var.authorization_ldap_group_membership_attribute_name
   authorization_ldap_trim_client_username_domain_enabled         = var.authorization_ldap_trim_client_username_domain_enabled
   authorization_profile_name                                     = var.authorization_profile_name
@@ -202,11 +209,92 @@ resource "solacebroker_msg_vpn_client_profile" "main" {
   tls_allow_downgrade_to_plain_text_enabled                        = var.tls_allow_downgrade_to_plain_text_enabled
 }
 
-# resource "solacebroker_msg_vpn_authentication_oauth_profile" "main" {
-#   msg_vpn_name       = solacebroker_msg_vpn.main.msg_vpn_name
-#   oauth_profile_name = var.oauth_profile_name
-#   enabled             = var.enabled
+resource "solacebroker_msg_vpn_authentication_oauth_profile" "main" {
+  count = var.oauth_profile_name != "" ? 1 : 0
 
-# }
+  msg_vpn_name       = solacebroker_msg_vpn.main.msg_vpn_name
+  oauth_profile_name = var.oauth_profile_name
+  enabled            = var.enabled
+
+  authorization_groups_claim_name            = var.authorization_groups_claim_name
+  authorization_groups_claim_string_format   = var.authorization_groups_claim_string_format
+  client_id                                  = var.client_id
+  client_required_type                       = var.client_required_type
+  client_secret                              = var.client_secret
+  client_validate_type_enabled               = var.client_validate_type_enabled
+  disconnect_on_token_expiration_enabled     = var.disconnect_on_token_expiration_enabled
+  endpoint_discovery                         = var.endpoint_discovery
+  endpoint_discovery_refresh_interval        = var.endpoint_discovery_refresh_interval
+  endpoint_introspection                     = var.endpoint_introspection
+  endpoint_introspection_timeout             = var.endpoint_introspection_timeout
+  endpoint_jwks                              = var.endpoint_jwks
+  endpoint_jwks_refresh_interval             = var.endpoint_jwks_refresh_interval
+  endpoint_userinfo                          = var.endpoint_userinfo
+  endpoint_userinfo_timeout                  = var.endpoint_userinfo_timeout
+  issuer                                     = var.issuer
+  mqtt_username_validate_enabled             = var.mqtt_username_validate_enabled
+  oauth_role                                 = var.oauth_role
+  resource_server_parse_access_token_enabled = var.resource_server_parse_access_token_enabled
+  resource_server_required_audience          = var.resource_server_required_audience
+  resource_server_required_issuer            = var.resource_server_required_issuer
+  resource_server_required_scope             = var.resource_server_required_scope
+  resource_server_required_type              = var.resource_server_required_type
+  resource_server_validate_audience_enabled  = var.resource_server_validate_audience_enabled
+  resource_server_validate_issuer_enabled    = var.resource_server_validate_issuer_enabled
+  resource_server_validate_scope_enabled     = var.resource_server_validate_scope_enabled
+  resource_server_validate_type_enabled      = var.resource_server_validate_type_enabled
+  username_claim_name                        = var.username_claim_name
+}
+
+resource "solacebroker_msg_vpn_authentication_oauth_profile_client_required_claim" "main" {
+  count = var.oauth_profile_name != "" ? length(local.oauth_profile_client_required_claims_list) : 0
+
+  msg_vpn_name                = solacebroker_msg_vpn.main.msg_vpn_name
+  oauth_profile_name          = solacebroker_msg_vpn_authentication_oauth_profile.main[0].oauth_profile_name
+  client_required_claim_name  = local.oauth_profile_client_required_claims_list[count.index].claim_name
+  client_required_claim_value = local.oauth_profile_client_required_claims_list[count.index].claim_value
+}
+
+resource "solacebroker_msg_vpn_authentication_oauth_profile_resource_server_required_claim" "main" {
+  count = var.oauth_profile_name != "" ? length(local.oauth_profile_resource_server_required_claims_list) : 0
+
+  msg_vpn_name                         = solacebroker_msg_vpn.main.msg_vpn_name
+  oauth_profile_name                   = solacebroker_msg_vpn_authentication_oauth_profile.main[0].oauth_profile_name
+  resource_server_required_claim_name  = local.oauth_profile_resource_server_required_claims_list[count.index].claim_name
+  resource_server_required_claim_value = local.oauth_profile_resource_server_required_claims_list[count.index].claim_value
+}
+
+resource "solacebroker_msg_vpn_cert_matching_rule" "main" {
+  count = var.cert_matching_rule_name != "" ? 1 : 0
+
+  msg_vpn_name = solacebroker_msg_vpn.main.msg_vpn_name
+  rule_name    = var.cert_matching_rule_name
+  enabled      = var.enabled
+}
+
+resource "solacebroker_msg_vpn_cert_matching_rule_condition" "main" {
+  count = var.cert_matching_rule_name != "" ? length(local.cert_matching_rule_conditions_list) : 0
+
+  msg_vpn_name = solacebroker_msg_vpn.main.msg_vpn_name
+  rule_name    = solacebroker_msg_vpn_cert_matching_rule.main[0].rule_name
+  source       = local.cert_matching_rule_conditions_list[count.index].source
+  expression   = local.cert_matching_rule_conditions_list[count.index].expression
+}
+
+resource "solacebroker_msg_vpn_cert_matching_rule_attribute_filter" "main" {
+  count = var.cert_matching_rule_name != "" ? length(local.cert_matching_rule_attribute_filters_list) : 0
+
+  msg_vpn_name    = solacebroker_msg_vpn.main.msg_vpn_name
+  rule_name       = solacebroker_msg_vpn_cert_matching_rule.main[0].rule_name
+  filter_name     = local.cert_matching_rule_attribute_filters_list[count.index].filter_name
+  attribute_name  = local.cert_matching_rule_attribute_filters_list[count.index].attribute_name
+  attribute_value = local.cert_matching_rule_attribute_filters_list[count.index].attribute_value
+}
+
+
+
+
+
+
 
 

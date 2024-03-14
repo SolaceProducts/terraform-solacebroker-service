@@ -40,16 +40,88 @@ variable "max_msg_spool_usage" {
 }
 
 variable "acl_profile_name" {
-  description = "The name of the ACL Profile to be added to the Message VPN. If not specified, no ACL Profile will be added. Default is \"\""
+  description = "The name of the ACL Profile to be created and added to the Message VPN. If not specified, no ACL Profile will be added. Default is \"\""
   type        = string
   default     = ""
 }
 
-
 variable "client_profile_name" {
-  description = "The name of the Client Profile to be added to the Message VPN. If not specified, no Client Profile will be added. Default is \"\""
+  description = "The name of the Client Profile to be created and added to the Message VPN. If not specified, no Client Profile will be added. Default is \"\""
   type        = string
   default     = ""
+}
+
+variable "oauth_profile_name" {
+  description = "The name of the OAuth Profile to be created and added to the Message VPN. If not specified, no OAuth Profile will be added. If specified, OAUth will be enabled on the VPN and this profile will be set as the default profile. Default is \"\""
+  type        = string
+  default     = ""
+}
+
+variable "authentication_oauth_enabled" {
+  description = "Enable or disable OAuth authentication"
+  type        = bool
+  default     = null
+}
+
+variable "cert_matching_rule_name" {
+  description = "The name of the Certification Matching Rule to be created and added to the Message VPN. A Cert Matching Rule is a collection of conditions and attribute filters that all have to be satisfied for certificate to be acceptable as authentication for a given username. If not specified, no Cert Matching Rule will be added. Default is \"\""
+  type        = string
+  default     = ""
+}
+
+variable "authentication_client_cert_enabled" {
+  description = "Enable or disable client certificate authentication in the Message VPN"
+  type        = bool
+  default     = null
+}
+
+variable "authentication_client_cert_certificate_matching_rules_enabled" {
+  description = "Enable or disable certificate matching rules"
+  type        = bool
+  default     = null
+}
+
+variable "authentication_oauth_default_profile_name" {
+  description = "The name of the profile to use when the client does not supply a profile name"
+  type        = string
+  default     = null
+}
+
+variable "oauth_profile_client_required_claims" {
+  description = "Additional claims to be verified in the ID token. Ignored if `oauth_profile_name` is not set"
+  type = set(object({
+    claim_name  = string
+    claim_value = string
+  }))
+  default = []
+}
+
+variable "oauth_profile_resource_server_required_claims" {
+  description = "Additional claims to be verified in the access token. Ignored if `oauth_profile_name` is not set"
+  type = set(object({
+    claim_name  = string
+    claim_value = string
+  }))
+  default = []
+}
+
+variable "cert_matching_rule_conditions" {
+  description = "The conditions to be added to the Certification Matching Rule. Ignored if `cert_matching_rule_name` is not set"
+  type = set(object({
+    source     = string
+    expression = string
+  }))
+  default = []
+}
+
+variable "cert_matching_rule_attribute_filters" {
+  description = "The filters to be added to the Certification Matching Rule. A Cert Matching Rule Attribute Filter compares a username attribute to a string. Ignored if `cert_matching_rule_name` is not set"
+  type = set(object({
+    filter_name     = string
+    attribute_name  = string
+    attribute_value = string
+  }))
+  default = []
 }
 
 variable "alias" {
@@ -100,18 +172,6 @@ variable "authentication_client_cert_allow_api_provided_username_enabled" {
   default     = null
 }
 
-variable "authentication_client_cert_certificate_matching_rules_enabled" {
-  description = "Enable or disable certificate matching rules"
-  type        = bool
-  default     = null
-}
-
-variable "authentication_client_cert_enabled" {
-  description = "Enable or disable client certificate authentication in the Message VPN"
-  type        = bool
-  default     = null
-}
-
 variable "authentication_client_cert_max_chain_depth" {
   description = "The maximum depth for a client certificate chain"
   type        = number
@@ -148,15 +208,15 @@ variable "authentication_kerberos_enabled" {
   default     = null
 }
 
-variable "authentication_oauth_default_profile_name" {
-  description = "The name of the profile to use when the client does not supply a profile name"
+variable "authorization_groups_claim_name" {
+  description = "The name of the groups claim"
   type        = string
   default     = null
 }
 
-variable "authentication_oauth_enabled" {
-  description = "Enable or disable OAuth authentication"
-  type        = bool
+variable "authorization_groups_claim_string_format" {
+  description = "The format of the authorization groups claim value when it is a string"
+  type        = string
   default     = null
 }
 
@@ -208,8 +268,39 @@ variable "client_connect_default_action" {
   default     = null
 }
 
+variable "client_id" {
+  description = "The OAuth client id"
+  type        = string
+  default     = null
+}
+
+variable "client_required_type" {
+  description = "The required value for the TYP field in the ID token header"
+  type        = string
+  default     = null
+}
+
+variable "client_secret" {
+  description = "The OAuth client secret"
+  type        = string
+  default     = null
+  sensitive   = true
+}
+
+variable "client_validate_type_enabled" {
+  description = "Enable or disable verification of the TYP field in the ID token header"
+  type        = bool
+  default     = null
+}
+
 variable "compression_enabled" {
   description = "Enable or disable allowing clients using the Client Profile to use compression"
+  type        = bool
+  default     = null
+}
+
+variable "disconnect_on_token_expiration_enabled" {
+  description = "Enable or disable the disconnection of clients when their tokens expire"
   type        = bool
   default     = null
 }
@@ -228,6 +319,54 @@ variable "eliding_enabled" {
 
 variable "eliding_max_topic_count" {
   description = "The maximum number of topics tracked for message eliding per client connection using the Client Profile"
+  type        = number
+  default     = null
+}
+
+variable "endpoint_discovery" {
+  description = "The OpenID Connect discovery endpoint or OAuth Authorization Server Metadata endpoint"
+  type        = string
+  default     = null
+}
+
+variable "endpoint_discovery_refresh_interval" {
+  description = "The number of seconds between discovery endpoint requests"
+  type        = number
+  default     = null
+}
+
+variable "endpoint_introspection" {
+  description = "The OAuth introspection endpoint"
+  type        = string
+  default     = null
+}
+
+variable "endpoint_introspection_timeout" {
+  description = "The maximum time in seconds a token introspection request is allowed to take"
+  type        = number
+  default     = null
+}
+
+variable "endpoint_jwks" {
+  description = "The OAuth JWKS endpoint"
+  type        = string
+  default     = null
+}
+
+variable "endpoint_jwks_refresh_interval" {
+  description = "The number of seconds between JWKS endpoint requests"
+  type        = number
+  default     = null
+}
+
+variable "endpoint_userinfo" {
+  description = "The OpenID Connect Userinfo endpoint"
+  type        = string
+  default     = null
+}
+
+variable "endpoint_userinfo_timeout" {
+  description = "The maximum time in seconds a userinfo request is allowed to take"
   type        = number
   default     = null
 }
@@ -494,6 +633,12 @@ variable "export_subscriptions_enabled" {
   default     = null
 }
 
+variable "issuer" {
+  description = "The Issuer Identifier for the OAuth provider"
+  type        = string
+  default     = null
+}
+
 variable "max_connection_count" {
   description = "The maximum number of client connections to the Message VPN"
   type        = number
@@ -557,6 +702,18 @@ variable "max_transaction_count" {
 variable "mqtt_retain_max_memory" {
   description = "The maximum total memory usage of the MQTT Retain feature for this Message VPN, in MB"
   type        = number
+  default     = null
+}
+
+variable "mqtt_username_validate_enabled" {
+  description = "Enable or disable whether the API provided MQTT client username will be validated against the username calculated from the token(s)"
+  type        = bool
+  default     = null
+}
+
+variable "oauth_role" {
+  description = "The OAuth role of the broker"
+  type        = string
   default     = null
 }
 
@@ -747,6 +904,60 @@ variable "replication_role" {
 variable "replication_transaction_mode" {
   description = "The transaction replication mode for all transactions within the Message VPN"
   type        = string
+  default     = null
+}
+
+variable "resource_server_parse_access_token_enabled" {
+  description = "Enable or disable parsing of the access token as a JWT"
+  type        = bool
+  default     = null
+}
+
+variable "resource_server_required_audience" {
+  description = "The required audience value"
+  type        = string
+  default     = null
+}
+
+variable "resource_server_required_issuer" {
+  description = "The required issuer value"
+  type        = string
+  default     = null
+}
+
+variable "resource_server_required_scope" {
+  description = "A space-separated list of scopes that must be present in the scope claim"
+  type        = string
+  default     = null
+}
+
+variable "resource_server_required_type" {
+  description = "The required TYP value"
+  type        = string
+  default     = null
+}
+
+variable "resource_server_validate_audience_enabled" {
+  description = "Enable or disable verification of the audience claim in the access token or introspection response"
+  type        = bool
+  default     = null
+}
+
+variable "resource_server_validate_issuer_enabled" {
+  description = "Enable or disable verification of the issuer claim in the access token or introspection response"
+  type        = bool
+  default     = null
+}
+
+variable "resource_server_validate_scope_enabled" {
+  description = "Enable or disable verification of the scope claim in the access token or introspection response"
+  type        = bool
+  default     = null
+}
+
+variable "resource_server_validate_type_enabled" {
+  description = "Enable or disable verification of the TYP field in the access token header"
+  type        = bool
   default     = null
 }
 
@@ -1071,6 +1282,12 @@ variable "tcp_max_window_size" {
 variable "tls_allow_downgrade_to_plain_text_enabled" {
   description = "Enable or disable the allowing of TLS SMF clients to downgrade their connections to plain-text connections"
   type        = bool
+  default     = null
+}
+
+variable "username_claim_name" {
+  description = "The name of the username claim"
+  type        = string
   default     = null
 }
 
