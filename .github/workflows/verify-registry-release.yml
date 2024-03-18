@@ -47,7 +47,7 @@ jobs:
 
       - name: Setup token and patch module with release information
         run: |
-          MODULENAME=client
+          MODULENAME=service
           if [ "${{ github.event.inputs.public_release }}" == "false" ] ; then
             echo Internal release
             MODULE_REF="app.terraform.io/SolaceDev/$MODULENAME/solacebroker"

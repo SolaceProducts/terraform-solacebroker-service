@@ -22,7 +22,7 @@ variable "dmr_enabled" {
 }
 
 variable "enabled" {
-  description = "Enable or disable the Message VPN. Default is enabled"
+  description = "Enable or disable the Message VPN and underlying created objects. Default is enabled"
   type        = bool
   default     = true
 }
