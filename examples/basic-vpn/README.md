@@ -1,4 +1,4 @@
-# Client Username Configuration Example
+# Message VPN Configuration Example
 
 Configuration in this directory creates a basic [message VPN](https://docs.solace.com/Features/VPN/Managing-Message-VPNs.htm) on the PubSub+ event broker, leveraging the Service Terraform module.
 
