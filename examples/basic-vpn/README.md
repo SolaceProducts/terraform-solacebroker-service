@@ -2,7 +2,7 @@
 
 Configuration in this directory creates a basic [message VPN](https://docs.solace.com/Features/VPN/Managing-Message-VPNs.htm) on the PubSub+ event broker, leveraging the Service Terraform module.
 
-The created VPN will enable SMF and WebSocket messaging services with a message spool of 1500 MB assigned by default, however REST, AMQP and MQTT services need to be enabled and configured if required through optional input variables. The code will show an example how to enable and configure REST messaging. Use of JNDI and DMR will also be enabled by default.
+The created VPN will enable SMF and WebSocket messaging services with a message spool of 1500 MB assigned by default, as well as use of JNDI and DMR will also be enabled. Refer to the example [Services and listen ports](examples/services-and-listen-ports) how to enable and configure other services including REST, MQTT and AMQP. 
 
 The VPN will include a `default` permissive ACL profile and a client profile, similar to the ones in the `default` message VPN.
 These profiles will enable ready-to-go messaging on the VPN for development and demo purposes. For production use a customized ACL profile and a client profile should be specified as in [this example](examples/customized-client-and-acl-profiles).
@@ -21,9 +21,6 @@ The default authentication method will be set to basic authentication with inter
 
 ### Optional Inputs
 
-* `service_rest_incoming_plain_text_enabled` - the example shows how to enable this protocol
-* `service_rest_incoming_plain_text_listen_port` - the example shows how to configure this protocol
-
 Optional module input variables have the same name as the attributes of the underlying provider resource. If omitted then the default for the related resource attribute will be configured on the broker. For attributes and defaults, refer to the [documentation of "solacebroker_msg_vpn_client_username"](https://registry.terraform.io/providers/SolaceProducts/solacebroker/latest/docs/resources/msg_vpn_client_username#optional).
 
 The module default for the `enabled` variable is true, which enables the message VPN and underlying resources.
@@ -38,7 +35,7 @@ This example will create following resources:
 
 * `solacebroker_msg_vpn`
 
-Note that `default` ACL profile, client profile and client username resources will also be automatically created an part of the new VPN but are only exposed by referencing their name.
+Note that `default` ACL profile, client profile and client username resources will also be automatically created as part of the new VPN but are only exposed by referencing their name.
 
 ## Running the Example
 
