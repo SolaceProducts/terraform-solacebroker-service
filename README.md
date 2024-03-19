@@ -2,7 +2,7 @@
 
 Terraform module that encapsulates a [message VPN](https://docs.solace.com/Features/VPN/Managing-Message-VPNs.htm) including client and ACL profiles, resource limits and service on the [Solace PubSub+ Event Broker](https://solace.com/products/event-broker/).
 
-The basic use case is to create a new message VPN with a permissive `default` ACL and client profile, ready for messaging. Optionally, an additional fully configurable ACL profile and a client profile can be defined. The module also adds advanced client certificate authentication and OAuth authentication configuration support.
+The basic use case is to create a new message VPN with a permissive `default` ACL and client profile, ready for messaging. Optionally, an additional fully customizable ACL profile and a client profile can be defined. The module also adds advanced client certificate authentication and OAuth authentication configuration support.
 
 Note: the `default` client username that is automatically created with the new VPN is disabled. It is recommended to use the [Client Module](https://registry.terraform.io/modules/SolceProducts/client/solacebroker/latest) to setup a client username if required. Also, services that require message VPN specific ports, including REST, MQTT etc. are disabled by default and need to be enabled/configured through optional variables.
 
@@ -81,10 +81,8 @@ The following table shows the resources created. "X" denotes a resource always c
 Refer to the following configuration examples:
 
 - [Basic VPN](examples/basic-vpn)
-- [Shutdown the default VPN](examples/shutdown-default-vpn)
 - [Services and listen ports](examples/services-and-listen-ports)
-- [Client profile](examples/client-profile)
-- [ACL profile](examples/acl-profile)
+- [Customized client and ACL profiles](examples/customized-client-and-acl-profiles)
 - [OAuth profile](examples/oauth-profile)
 - [Certification matching rule](examples/certificate-matching-rule)
 
@@ -97,7 +95,7 @@ This module is expected to be used primarily by middleware teams. It is primaril
 For more information about Solace technology in general please visit these resources:
 
 - Solace [Technical Documentation](https://docs.solace.com/)
-    - [Client Authorization](https://docs.solace.com/Security/Client-Authorization-Overview.htm)
+    - [Configuring Message VPNs](https://docs.solace.com/Features/VPN/Configuring-VPNs.htm)
 - The Solace Developer Portal website at: [solace.dev](//solace.dev/)
 - Understanding [Solace technology](//solace.com/products/platform/)
 - Ask the [Solace community](//dev.solace.com/community/).
