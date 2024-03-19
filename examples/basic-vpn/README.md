@@ -11,7 +11,7 @@ The default authentication method will be set to basic authentication with inter
 
  A `default` client username will also be created, however it will be shutdown and it is left to the user to setup a client username that meets their security requirements. The recommended way is to use the [Client Module](https://registry.terraform.io/modules/SolceProducts/client/solacebroker/latest) to setup a client username.
 
- Note: while not part of this module, it is strongly recommended to have the broker `default` message VPN shutdown which allows unauthenticated access with any client username.
+ Note: while not part of this module, it is strongly recommended to have the broker `default` message VPN, which allows unauthenticated access with any client username, shutdown.
 
 ## Module Configuration in the Example
 
