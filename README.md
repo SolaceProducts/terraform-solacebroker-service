@@ -44,7 +44,7 @@ Exceptions: the following optional variables' default value differ from the reso
 | `dmr_enabled` | `true` | 
 | `enabled` | `true` | the Message VPN and underlying created objects |
 | `jndi_enabled` | `true` |
-| `max_msg_spool_usage` | 1500 | message VPN |
+| `max_msg_spool_usage` | 1500 | MB, message VPN |
 
 -> The module default for the  optional variable is `true`, which 
 
