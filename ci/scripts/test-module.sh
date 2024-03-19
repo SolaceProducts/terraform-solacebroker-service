@@ -3,7 +3,7 @@
 # Params: $1 is the directory name, @2 (optional) additional argument to pass to terraform commands, $3 (optional), the module registry URL, $4 (optional), the module version
 set -e
 pushd "$1"
-if [ -n "$3" ] ; then sed -i "s@source =.*@source = \"$3\"@g" main.tf; fi
+if [ -n "$3" ] ; then sed -i "s@source = \"../.*@source = \"$3\"@g" main.tf; fi
 if [ -n "$4" ] ; then sed -i "s@# version =.*@version = \"$4\"@g" main.tf; fi
 cat main.tf
 terraform init
