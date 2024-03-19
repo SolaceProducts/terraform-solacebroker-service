@@ -1,7 +1,7 @@
 # Output variable definitions
 
 output "msg_vpn" {
-  value     = try(solacebroker_msg_vpn.main, null)
+  value = try(solacebroker_msg_vpn.main, null)
   sensitive = true
 }
 
@@ -14,7 +14,7 @@ output "client_profile" {
 }
 
 output "oauth_profile" {
-  value     = try(solacebroker_msg_vpn_authentication_oauth_profile.main, null)
+  value = try(solacebroker_msg_vpn_authentication_oauth_profile.main, null)
   sensitive = true
 }
 

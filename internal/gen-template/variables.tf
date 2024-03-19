@@ -98,30 +98,30 @@ variable "oauth_profile_client_required_claims" {
 
 variable "oauth_profile_resource_server_required_claims" {
   description = "Additional claims to be verified in the access token. Ignored if `oauth_profile_name` is not set"
-  type = set(object({
+  type        = set(object({
     claim_name  = string
     claim_value = string
   }))
-  default = []
+  default     = []
 }
 
 variable "cert_matching_rule_conditions" {
   description = "The conditions to be added to the Certification Matching Rule. Ignored if `cert_matching_rule_name` is not set"
-  type = set(object({
-    source     = string
+  type        = set(object({
+    source = string
     expression = string
   }))
-  default = []
+  default     = []
 }
 
 variable "cert_matching_rule_attribute_filters" {
   description = "The filters to be added to the Certification Matching Rule. A Cert Matching Rule Attribute Filter compares a username attribute to a string. Ignored if `cert_matching_rule_name` is not set"
-  type = set(object({
-    filter_name     = string
-    attribute_name  = string
+  type        = set(object({
+    filter_name = string
+    attribute_name = string
     attribute_value = string
   }))
-  default = []
+  default     = []
 }
 
 #AutoAddAttributes

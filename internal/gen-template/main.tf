@@ -2,7 +2,7 @@ locals {
   oauth_profile_client_required_claims_list          = tolist(var.oauth_profile_client_required_claims)
   oauth_profile_resource_server_required_claims_list = tolist(var.oauth_profile_resource_server_required_claims)
   cert_matching_rule_conditions_list                 = tolist(var.cert_matching_rule_conditions)
-  cert_matching_rule_attribute_filters_list          = tolist(var.cert_matching_rule_attribute_filters)
+  cert_matching_rule_attribute_filters_list          = tolist(var.cert_matching_rule_attribute_filters) 
 }
 
 resource "solacebroker_msg_vpn" "main" {
