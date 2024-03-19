@@ -34,14 +34,14 @@ module "testvpn" {
   cert_matching_rule_name = "testvpnCertMatchingRule"
   cert_matching_rule_conditions = [
     {
-      source = "issuer"
+      source     = "issuer"
       expression = "C = CA, ST = Ontario, L = Kanata, O = Solace Systems, OU = IT, CN = *.messaging.solace"
     }
   ]
   cert_matching_rule_attribute_filters = [
     {
-      filter_name = "testFilter"
-      attribute_name = "username"
+      filter_name     = "testFilter"
+      attribute_name  = "username"
       attribute_value = "test"
     }
   ]
@@ -58,6 +58,6 @@ module "testvpn2" {
 module "defaultvpn" {
   source = "../.."
 
-  msg_vpn_name           = "default"
-  enabled = false
+  msg_vpn_name = "default"
+  enabled      = false
 }
