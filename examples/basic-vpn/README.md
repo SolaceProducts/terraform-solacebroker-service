@@ -68,7 +68,7 @@ terraform plan
 terraform apply
 ```
 
-Run `terraform destroy` to clean up created resources when no longer needed.
+Run `terraform destroy` to clean up created resources when no longer needed. Note that as part of this command there may be a warning about default objects cannot be deleted, this is normal and expected here.
 
 ## Additional Documentation
 
