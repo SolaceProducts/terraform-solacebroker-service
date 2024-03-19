@@ -15,7 +15,7 @@ A service may also use plain text or secure transport. While it is generally rec
 ### Optional Inputs
 
 * `service_rest_incoming_plain_text_enabled` - set to `true` in this example
-* `service_rest_incoming_plain_text_listen_port` - set to `9000` in this example
+* `service_rest_incoming_plain_text_listen_port` - set to `9001` in this example. Note that the port number must be unique for the broker, port 9000 is already used by the default VPN
 
 Other optional module input variables have the same name as the attributes of the underlying provider resource. If omitted then the default for the related resource attribute will be configured on the broker. For attributes and defaults, refer to the [documentation of "solacebroker_msg_vpn"](https://registry.terraform.io/providers/SolaceProducts/solacebroker/latest/docs/resources/msg_vpn#optional).
 
