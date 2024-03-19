@@ -82,7 +82,7 @@ Refer to the following configuration examples:
 
 - [Basic VPN](examples/basic-vpn)
 - [Services and listen ports](examples/services-and-listen-ports)
-- [Customized client and ACL profiles](examples/customized-client-and-acl-profiles)
+- [Customized ACL and client profiles](examples/customized-acl-and-client-profiles)
 - [OAuth profile](examples/oauth-profile)
 - [Certification matching rule](examples/certificate-matching-rule)
 
