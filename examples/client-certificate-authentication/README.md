@@ -25,16 +25,16 @@ The module default for the `enabled` variable is true, which enables the message
 
 ### Output
 
-The module `created_vpn` and `created_oauth_profile` outputs refer to the created message VPN and the OAuth profile. The claims outputs provide the list of the created required claims.
+The module `created_vpn` and `created_cert_matching_rule` outputs refer to the created message VPN and the certificate matching rule. There are also outputs for the list of conditions and attribute filters.
 
 ## Created resources
 
 This example will create following resources:
 
 * `solacebroker_msg_vpn`
-* `solacebroker_msg_vpn_authentication_oauth_profile`
-* `solacebroker_msg_vpn_authentication_oauth_profile_client_required_claim`
-* `solacebroker_msg_vpn_authentication_oauth_profile_resource_server_required_claim`
+* `solacebroker_msg_vpn_cert_matching_rule`
+* `solacebroker_msg_vpn_cert_matching_rule_condition`
+* `solacebroker_msg_vpn_cert_matching_rule_attribute_filter`
 
 ## Running the Example
 

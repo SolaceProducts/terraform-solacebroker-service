@@ -17,7 +17,7 @@ module "testvpn" {
   // example certificate matching rule
   cert_matching_rule_name = "testvpnCertMatchingRule"
 
-  // not required if certificate matching rule is used
+  // not required if certificate matching rule is configured
   // authentication_client_cert_certificate_matching_rules_enabled = true
 
   cert_matching_rule_conditions = [
