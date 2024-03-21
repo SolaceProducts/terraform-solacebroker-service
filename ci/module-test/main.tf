@@ -35,14 +35,14 @@ module "testvpn" {
   cert_matching_rule_name = "testvpnCertMatchingRule"
   cert_matching_rule_conditions = [
     {
-      source = "issuer"
+      source     = "issuer"
       expression = "C = CA, ST = Ontario, L = Kanata, O = Solace Systems, OU = IT, CN = *.messaging.solace"
     }
   ]
   cert_matching_rule_attribute_filters = [
     {
-      filter_name = "testFilter"
-      attribute_name = "username"
+      filter_name     = "testFilter"
+      attribute_name  = "username"
       attribute_value = "test"
     }
   ]
@@ -50,7 +50,7 @@ module "testvpn" {
 }
 
 output "created_msg_vpn" {
-  value = module.testvpn.msg_vpn
+  value     = module.testvpn.msg_vpn
   sensitive = true
 }
 
@@ -63,7 +63,7 @@ output "created_client_profile" {
 }
 
 output "created_oauth_profile" {
-  value = module.testvpn.oauth_profile
+  value     = module.testvpn.oauth_profile
   sensitive = true
 }
 
@@ -100,6 +100,6 @@ module "defaultvpn" {
   source = "../.."
   # version = ""
 
-  msg_vpn_name           = "default"
-  enabled = false
+  msg_vpn_name = "default"
+  enabled      = false
 }
