@@ -12,22 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-provider "solacebroker" {
-  username = "admin"
-  password = "admin"
-  url      = "http://localhost:8080"
-}
+# Terraform configuration
 
-module "testvpn" {
-  source = "../.."
-
-  msg_vpn_name = "myvpn"
-
-  // No need to set the VPN enabled, it defaults to true
-  // enabled = true
-}
-
-output "created_vpn" {
-  value     = module.testvpn.msg_vpn
-  sensitive = true
+terraform {
+  required_providers {
+    solacebroker = {
+      source = "registry.terraform.io/solaceproducts/solacebroker"
+    }
+  }
+  required_version = "~> 1.2"
 }
