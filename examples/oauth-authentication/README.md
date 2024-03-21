@@ -48,7 +48,7 @@ The sample is available from the module GitHub repo:
 
 ```bash
 git clone https://github.com/SolaceProducts/terraform-solacebroker-rest-delivery.git
-cd examples/oauth-profile
+cd examples/oauth-authentication
 ```
 
 ### Adjust Provider Configuration

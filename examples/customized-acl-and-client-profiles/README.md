@@ -47,7 +47,7 @@ The sample is available from the module GitHub repo:
 
 ```bash
 git clone https://github.com/SolaceProducts/terraform-solacebroker-rest-delivery.git
-cd examples/basic-vpn
+cd examples/customized-acl-and-client-profiles
 ```
 
 ### Adjust Provider Configuration

@@ -83,8 +83,8 @@ Refer to the following configuration examples:
 - [Basic VPN](examples/basic-vpn)
 - [Services and listen ports](examples/services-and-listen-ports)
 - [Customized ACL and client profiles](examples/customized-acl-and-client-profiles)
-- [OAuth profile](examples/oauth-profile)
-- [Certification matching rule](examples/certificate-matching-rule)
+- [OAuth authentication](examples/oauth-authentication)
+- [Client certificate authentication](examples/client-certificate-authentication)
 
 ## Module use recommendations
 
