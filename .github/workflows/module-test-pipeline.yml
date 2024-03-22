@@ -39,7 +39,6 @@ jobs:
           echo "Generating code using spec $SWAGGER_SPEC_NAME"
           rm ./*.tf
           SEMP_V2_SWAGGER_CONFIG_EXTENDED_JSON="ci/swagger_spec/$SWAGGER_SPEC_NAME" MODULE_TEMPLATE_FOLDER="internal/gen-template" ~/go/bin/broker-terraform-code-generator software-module
-          popd
 
       - name: Ensure version reflects release candidate version
         run: |
