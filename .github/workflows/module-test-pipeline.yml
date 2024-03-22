@@ -40,6 +40,12 @@ jobs:
           rm ./*.tf
           SEMP_V2_SWAGGER_CONFIG_EXTENDED_JSON="ci/swagger_spec/$SWAGGER_SPEC_NAME" MODULE_TEMPLATE_FOLDER="internal/gen-template" ~/go/bin/broker-terraform-code-generator software-module
 
+      - name: Add copyright headers where needed
+        run: |
+          go install github.com/google/addlicense@latest
+          addlicense -c 'Solace Corporation. All rights reserved.' -v -l apache ./*.tf
+          addlicense -c 'Solace Corporation. All rights reserved.' -v -l apache $(find ./examples -name "*.tf" -type f -print0 | xargs -0)
+
       - name: Ensure version reflects release candidate version
         run: |
           VERSION=$(echo "${{ github.event.inputs.release_branch_name }}" | cut -d'v' -f2)
