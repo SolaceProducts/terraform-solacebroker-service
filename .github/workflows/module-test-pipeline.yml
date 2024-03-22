@@ -48,7 +48,7 @@ jobs:
 
       - name: Ensure version reflects release candidate version
         run: |
-          VERSION=$(echo "${{ github.event.inputs.release_branch_name }}" | cut -d'v' -f2)
+          VERSION=$(echo "${GITHUB_REF_NAME}" | cut -d'v' -f2)
           echo $VERSION > VERSION
 
       - name: Setup test broker
