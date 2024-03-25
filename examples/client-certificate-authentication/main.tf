@@ -21,7 +21,7 @@ provider "solacebroker" {
 module "testvpn" {
   source = "../.."
 
-  msg_vpn_name           = "vpn-with-mtls"
+  msg_vpn_name = "vpn-with-mtls"
   // No need to set the VPN enabled, it defaults to true
   // enabled = true
 
@@ -36,14 +36,14 @@ module "testvpn" {
 
   cert_matching_rule_conditions = [
     {
-      source = "issuer"
+      source     = "issuer"
       expression = "C = CA, ST = Ontario, L = Kanata, O = Solace Systems, OU = IT, CN = *.messaging.solace"
     }
   ]
   cert_matching_rule_attribute_filters = [
     {
-      filter_name = "testFilter"
-      attribute_name = "username"
+      filter_name     = "testFilter"
+      attribute_name  = "username"
       attribute_value = "test"
     }
   ]
@@ -55,14 +55,14 @@ output "created_vpn" {
 }
 
 output "created_cert_matching_rule" {
-  value     = module.testvpn.cert_matching_rule
+  value = module.testvpn.cert_matching_rule
 }
 
 output "created_cert_matching_rule_conditions" {
-  value     = module.testvpn.cert_matching_rule_conditions
+  value = module.testvpn.cert_matching_rule_conditions
 }
 
 output "created_cert_matching_rule_attribute_filters" {
-  value     = module.testvpn.cert_matching_rule_attribute_filters
+  value = module.testvpn.cert_matching_rule_attribute_filters
 }
 
