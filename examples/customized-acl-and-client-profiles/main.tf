@@ -21,10 +21,10 @@ provider "solacebroker" {
 module "testvpn" {
   source = "../.."
 
-  msg_vpn_name           = "vpn-with-acl-and-client-profiles"
+  msg_vpn_name = "vpn-with-acl-and-client-profiles"
 
   // Configure an ACL profile. This example allows clients to connect from any address. All other ACL rules are default
-  acl_profile_name = "my-acl-profile"
+  acl_profile_name              = "my-acl-profile"
   client_connect_default_action = "allow"
 
   // Configure a client profile. This example disables compression, which is by default enabled. All other client profile settings are default
@@ -41,10 +41,10 @@ output "created_vpn" {
 }
 
 output "created_acl_profile" {
-  value     = module.testvpn.acl_profile
+  value = module.testvpn.acl_profile
 }
 
 output "created_client_profile" {
-  value     = module.testvpn.client_profile
+  value = module.testvpn.client_profile
 }
 
