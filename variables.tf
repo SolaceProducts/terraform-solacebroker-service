@@ -689,6 +689,12 @@ variable "max_ingress_flow_count" {
   default     = null
 }
 
+variable "max_kafka_broker_connection_count" {
+  description = "The maximum number of simultaneous Kafka broker connections of the Message VPN"
+  type        = number
+  default     = null
+}
+
 variable "max_msgs_per_transaction" {
   description = "The maximum number of publisher and consumer messages combined that is allowed within a transaction for each client associated with this client-profile"
   type        = number
