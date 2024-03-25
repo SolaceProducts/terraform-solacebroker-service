@@ -76,6 +76,7 @@ resource "solacebroker_msg_vpn" "main" {
   max_egress_flow_count                                          = var.max_egress_flow_count
   max_endpoint_count                                             = var.max_endpoint_count
   max_ingress_flow_count                                         = var.max_ingress_flow_count
+  max_kafka_broker_connection_count                              = var.max_kafka_broker_connection_count
   max_subscription_count                                         = var.max_subscription_count
   max_transacted_session_count                                   = var.max_transacted_session_count
   max_transaction_count                                          = var.max_transaction_count
