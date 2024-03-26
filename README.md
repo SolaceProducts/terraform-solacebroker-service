@@ -70,8 +70,8 @@ The following table shows the resources created. "X" denotes a resource always c
 | solacebroker_msg_vpn_acl_profile | O | This is an additional configurable profile. A default ACL profile is always created |
 | solacebroker_msg_vpn_client_profile | O | This is an additional configurable profile. A default client profile is always created |
 | solacebroker_msg_vpn_authentication_oauth_profile | O | |
-| solacebroker_msg_vpn_authentication_oauth_profile_client_required_claim | O | Requires above AOuth profile and it will be assigned to that |
-| solacebroker_msg_vpn_authentication_oauth_profile_resource_server_required_claim | O | Requires above AOuth profile and it will be assigned to that |
+| solacebroker_msg_vpn_authentication_oauth_profile_client_required_claim | O | Requires above OAuth profile and it will be assigned to that |
+| solacebroker_msg_vpn_authentication_oauth_profile_resource_server_required_claim | O | Requires above OAuth profile and it will be assigned to that |
 | solacebroker_msg_vpn_cert_matching_rule | O | |
 | solacebroker_msg_vpn_cert_matching_rule_condition | O | Requires above certification matching rule and it will be assigned to that |
 | solacebroker_msg_vpn_cert_matching_rule_attribute_filter | O | Requires above certification matching rule and it will be assigned to that |
