@@ -10,14 +10,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Set up Terraform latest - public
-        if: ${{ secrets.PRIVATE_TEST_PROVIDER_VERSION != "" }}
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_wrapper: true
-
-      - name: Set up Terraform latest - private, with token
-        if: ${{ secrets.PRIVATE_TEST_PROVIDER_VERSION == "" }}
+      - name: Set up Terraform latest - with token
         uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
