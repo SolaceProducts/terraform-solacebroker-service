@@ -28,8 +28,9 @@ jobs:
           export PRIVATE_PROVIDER_VERSION=""
           if [ -n "$PRIVATE_PROVIDER_VERSION" ]; then
             echo "Using private provider version $PRIVATE_PROVIDER_VERSION"
-            terraform init -upgrade -reconfigure -plugin-dir=terraform.d/plugins -get-plugins=false
-          }
+            grep -rl 'source  = "' . | xargs sed -i 's@source  = ".*$@source  = "app.terraform.io/SolaceDev/solacebroker"@g'
+            grep -rl 'version = "' . | xargs sed -i 's@  version = ".*$@  version = "${PRIVATE_PROVIDER_VERSION}"@g'
+          fi
 
       - name: Test module from template on test broker
         run: |
