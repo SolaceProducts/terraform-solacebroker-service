@@ -23,6 +23,14 @@ jobs:
             --env system_scaling_maxconnectioncount="1000" --mount type=bind,source=$HOME/solace,destination=/var/lib/solace,ro=false solace/solace-pubsub-standard:latest
           while ! curl -s localhost:8080 | grep aurelia ; do sleep 1 ; done
 
+      - name: Setup if private provider is required
+        run: |
+          export PRIVATE_PROVIDER_VERSION=""
+          if [ -n "$PRIVATE_PROVIDER_VERSION" ]; then
+            echo "Using private provider version $PRIVATE_PROVIDER_VERSION"
+            terraform init -upgrade -reconfigure -plugin-dir=terraform.d/plugins -get-plugins=false
+          }
+
       - name: Test module from template on test broker
         run: |
           ci/scripts/test-module.sh ci/template-test
