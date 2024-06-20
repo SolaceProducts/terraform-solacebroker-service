@@ -46,6 +46,10 @@ jobs:
           for d in examples/!(basic-client-username)/; do (ci/scripts/test-module.sh "$d"); done
           # ci/scripts/test-module.sh examples/basic-client-username/ -var-file=secret.tfvars
 
+      - name: Discard any changes in checked out code
+        run: |
+          git checkout -- .
+
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
