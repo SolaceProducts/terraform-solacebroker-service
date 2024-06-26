@@ -4,7 +4,7 @@ This Terraform module encapsulates a [Message VPN](https://docs.solace.com/Featu
 
 You can use this module to create a new Message VPN with a permissive `default` ACL and client profile, ready for messaging. You can also define an optional additional fully customizable ACL and client profile. The module also adds advanced client certificate authentication and OAuth authentication configuration support.
 
-Note: the `default` client username that is automatically created with the new Message VPN is disabled. We recommend that you use the [Client Module](https://registry.terraform.io/modules/SolceProducts/client/solacebroker/latest) to setup a client username if required. In addition, services that require Message VPN specific ports, including REST, MQTT etc. are disabled by default and need to be enabled/configured through optional variables.
+Note: the `default` client username that is automatically created with the new Message VPN is disabled. We recommend that you use the [Client Module](https://registry.terraform.io/modules/SolaceProducts/client/solacebroker/latest) to setup a client username if required. In addition, services that require Message VPN specific ports, including REST, MQTT etc. are disabled by default and need to be enabled/configured through optional variables.
 
 Use case details are provided in the [Examples](#examples) section.
 

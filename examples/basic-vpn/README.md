@@ -9,7 +9,7 @@ These profiles enable ready-to-go messaging on the VPN for development and demo 
 
 The default authentication method will be set to basic authentication with internal database.
 
- A `default` client username is also created, however it will be shutdown and it is left to the user to setup a client username that meets their security requirements. We recommended that you use the [Client Module](https://registry.terraform.io/modules/SolceProducts/client/solacebroker/latest) to setup a client username.
+ A `default` client username is also created, however it will be shutdown and it is left to the user to setup a client username that meets their security requirements. We recommended that you use the [Client Module](https://registry.terraform.io/modules/SolaceProducts/client/solacebroker/latest) to setup a client username.
 
  Note: while not part of this module, we strongly recommend that you shutdown the `default` Message VPN on the event broker, because it allows unauthenticated access with any client username.
 
