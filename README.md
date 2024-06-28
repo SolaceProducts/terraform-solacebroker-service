@@ -56,7 +56,7 @@ Note that the "Message VPN" output is [sensitive](https://developer.hashicorp.co
 
 | Name | Version |
 |------|---------|
-| <a name="provider_solacebroker"></a> [solacebroker](https://registry.terraform.io/providers/SolaceProducts/solacebroker/latest) | ~> 1.0 |
+| <a name="provider_solacebroker"></a> [solacebroker](https://registry.terraform.io/providers/SolaceProducts/solacebroker/latest) | >= 1.0 |
 
 ## Resources
 
